@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+    <th:block th:include="~{fragments/nav}"></th:block>
+    <div class="container" th:object="${bindingModel}">
+        <form th:method="delete" th:action="@{/students/delete}">
+            <input type="hidden" th:value="*{id}" name="studentId">
+            <input type="hidden" th:value="*{classroomId}" name="classroomId">
+            <button type="submit" value="Submit" class="btn btn-danger">Delete a student</button>
+        </form>
+        <form  th:method="put" th:action="@{/students/edit}" class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+            <h1 class="text-center">Edit student</h1>
+            <input type="hidden" th:value="*{id}" name="id">
+            <input type="hidden" th:value="*{classroomId}" name="classroomId">
+            <div class="form-group">
+                <label for="firstName" class="text-white">Name</label>
+                <input th:placeholder="*{firstName}" th:value="*{firstName}" th:errorclass="bg-danger" name="firstName" id="firstName" class="form-control">
+                <small th:errors="*{firstName}" class="text-danger"></small>
+            </div>
+            <div class="form-group">
+                <label for="middleName" class="text-white">Middle Name</label>
+                <input th:placeholder="*{middleName}" th:value="*{middleName}" th:errorclass="bg-danger" name="middleName" id="middleName" class="form-control">
+                <small th:errors="*{middleName}" class="text-danger"></small>
+            </div>
+            <div class="form-group">
+                <label for="middleName" class="text-white">Last Name</label>
+                <input th:placeholder="*{lastName}" th:value="*{lastName}" th:errorclass="bg-danger" name="lastName" id="lastName" class="form-control">
+                <small th:errors="*{lastName}" class="text-danger"></small>
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="userEmail">Еmail:</label>
+                <input th:field="*{userEmail}" th:value="*{userEmail}" type="email" th:errorclass="bg-danger" id="userEmail" required name="userEmail" class="form-control"/>
+                <small th:if="${error}" class="text-danger">Already exists</small>
+                <small th:errors="*{userEmail}" class="text-danger"></small>
+            </div>
+
+            <div class="row">
+                <div class="col col-md-4">
+                    <div class="button-holder d-flex">
+                        <input type="submit" class="btn btn-info btn-lg" value="Changes"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="/fragments/footer"></th:block>
+</div>
+</body>
+</html>

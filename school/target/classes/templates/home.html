@@ -1,0 +1,22 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+    <script src="/js/home.js" type="text/javascript"></script>
+</head>
+<body>
+    <th:block th:include="~{fragments/nav}"></th:block>
+    <div class="container">
+        <h1 class="text-center text-white" th:text="${'Hello , ' + #authentication.getPrincipal().getUsername() + ' !'}"></h1>
+        <th:block sec:authorize="hasAuthority('ADMIN')" th:include="~{fragments/admin}"></th:block>
+
+        <th:block sec:authorize="hasAuthority('TEACHER')" >
+            <button id="teacherNames" th:click="teachersNames(2)"  class="text-center text-white">Test</button>
+        </th:block>
+
+        <th:block th:if="${student} != null" th:include="~{fragments/student}" ></th:block>
+
+        <th:block th:include="~{/fragments/footer}"></th:block>
+</div>
+</body>
+</html>

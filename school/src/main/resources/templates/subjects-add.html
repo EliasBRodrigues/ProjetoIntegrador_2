@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+    <script src="/js/groups.js" type="text/javascript"></script>
+</head>
+<body>
+<th:block th:include="~{fragments/nav}"></th:block>
+<div class="container">
+    <h3 th:text="|${classroom.number} ${classroom.letter} class|" class="text-white text-center"></h3>
+    <a th:href="@{'/subjects/all/' + ${classroom.id}}" ><button type="button" class="button btn-dark" >All subjects</button></a>
+    <form th:method="post" th:action="@{/subjects/add}" th:object="${bindingModel}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        <h3 class="text-center text-white">Add an item</h3>
+        <small th:text="${error}" class="text-danger text-center"></small>
+        <div class="form-group">
+            <label for="subject" class="text-white">Choose a subject</label>
+            <select  th:field="*{subject}"  class="form-control" id="subject" name="subject">
+                <option th:each="subject : ${T(school.constants.enumuration.SubjectEnum).values()}"
+                        th:value="${subject}" th:text="${subject}"></option>
+            </select>
+            <input type="hidden" th:value="${classroom.id}" name="classroomId">
+        </div>
+        <div class="form-group">
+            <label for="teacherId" class="text-white">Choose a teacher</label>
+            <select  th:field="*{teacherId}"  class="form-control" id="teacherId" name="teacherId">
+                <option th:each="teacher : ${teachers}"
+                        th:text="|${teacher.firstName} ${teacher.middleName} ${teacher.lastName}|" th:value="${teacher.id}"></option>
+            </select>
+            <input type="hidden" th:value="${classroom.id}" name="classroomId">
+        </div>
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Add"/>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div style="height: 80px"> </div>
+</div>
+<th:block th:include="~{/fragments/footer}"></th:block>
+</body>
+</html>

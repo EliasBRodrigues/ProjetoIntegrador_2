@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+    <!--    <script src="/js/groups.js" type="text/javascript"></script>-->
+</head>
+<body>
+<th:block th:include="~{fragments/nav}"></th:block>
+<div class="container">
+    <h3 th:text="|${classroom.number} ${classroom.letter} class|" class="text-white text-center"></h3>
+    <h3 class="text-white text-center">Subjects</h3>
+    <a th:href="@{'/subjects/add/' + ${classroom.id}}">
+        <button type="button" class="button btn-dark">Add an item</button>
+    </a>
+    <a th:href="@{'/students/all/' + ${classroom.id}}">
+        <button type="button" class="button btn-dark">Students</button>
+    </a>
+        <table class="table table-striped" style="width:100%">
+            <thead>
+            <tr>
+                <td>Name</td>
+                <td>Teacher</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="subject : ${subjects}" th:object="${subject}">
+                <td th:text="*{subject}"></td>
+                <td th:object="${subject.teacher}" th:text="|*{firstName} *{middleName} *{lastName}|"></td>
+                <td>
+                    <a id="add-student-btn" th:href="@{'/subjects/edit/' + ${subject.id}}">
+                        <button type="button" class="button btn-success">Changes</button>
+                    </a>
+                </td>
+            </tr>
+            <tr th:if="${subjects.size()} == 0">
+                <td class="text-danger text-center" colspan="3">There are no items</td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="height: 80px;"></div>
+</div>
+<th:block th:include="~{/fragments/footer}"></th:block>
+</body>
+</html>

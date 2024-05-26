@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div class="wrap">
+    <th:block th:include="~{fragments/nav}"></th:block>
+    <div class="container">
+        <h1 class="text-center">Edit</h1>
+        <table th:object="${user}" class="table table-striped" style="width:100%">
+            <tbody>
+            <tr>
+                <td>Username:</td>
+                <td th:text="*{email}" colspan="2"></td>
+            </tr>
+            <tr>
+                <td>Administrator:</td>
+                <th:block th:if="*{authorities.contains('ADMIN')}">
+                    <td>Да</td>
+                    <td>
+                        <form th:method="put" th:action="@{/users/remove-authority}">
+                            <input type="hidden" name="userId" th:value="${user.id}"/>
+                            <input type="hidden" name="authority" th:value="ADMIN"/>
+                            <button type="submit" value="Submit" class="btn btn-danger">Cancel</button>
+                        </form>
+                    </td>
+                </th:block>
+                <th:block th:unless="*{authorities.contains('ADMIN')}">
+                    <td>Не</td>
+                    <td>
+                        <form th:method="put" th:action="@{/users/add-authority}">
+                            <input type="hidden" name="userId" th:value="${user.id}"/>
+                            <input type="hidden" name="authority" th:value="ADMIN"/>
+                            <button type="submit" value="Submit" class="btn btn-success">Save</button>
+                        </form>
+                    </td>
+                </th:block>
+            </tr>
+            <tr>
+                <td>Teacher:</td>
+                <th:block th:if="*{authorities.contains('TEACHER')}">
+                    <td>Да</td>
+                    <td >
+                        <form th:method="put" th:action="@{/users/remove-authority}">
+                            <input type="hidden" name="userId" th:value="${user.id}"/>
+                            <input type="hidden" name="authority" th:value="TEACHER"/>
+                            <button type="submit" value="Submit" class="btn btn-danger">Cancel</button>
+                        </form>
+                    </td>
+                </th:block>
+                <th:block th:unless="*{authorities.contains('TEACHER')}">
+                    <td>Not</td>
+                    <td>
+                        <form th:method="put" th:action="@{/users/add-authority}">
+                            <input type="hidden" name="userId" th:value="${user.id}"/>
+                            <input type="hidden" name="authority" th:value="TEACHER"/>
+                            <button type="submit" value="Submit" class="btn btn-success">Save</button>
+                        </form>
+                    </td>
+                </th:block >
+            </tr>
+            <tr>
+                <td>Student:</td>
+                <th:block th:if="*{authorities.contains('STUDENT')}">
+                    <td>Yes</td>
+                    <td >
+                        <form th:method="put" th:action="@{/users/remove-authority}">
+                            <input type="hidden" name="userId" th:value="${user.id}"/>
+                            <input type="hidden" name="authority" th:value="STUDENT"/>
+                            <button type="submit" value="Submit" class="btn btn-danger">Cancel</button>
+                        </form>
+                    </td>
+                </th:block>
+                <th:block th:unless="*{authorities.contains('STUDENT')}">
+                    <td>Not</td>
+                    <td>
+                        <form th:method="put" th:action="@{/users/add-authority}">
+                            <input type="hidden" name="userId" th:value="${user.id}"/>
+                            <input type="hidden" name="authority" th:value="STUDENT"/>
+                            <button type="submit" value="Submit" class="btn btn-success">Save</button>
+                        </form>
+                    </td>
+                </th:block >
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <form th:method="delete" th:action="@{/users/delete}">
+                        <input type="hidden" name="userId" th:value="${user.id}"/>
+                        <button type="submit" value="Submit" class="btn btn-danger">Delete user</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <th:block th:include="/fragments/footer"></th:block>
+</div>
+</body>
+</html>

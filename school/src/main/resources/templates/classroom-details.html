@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+    <script src="/js/students.js" type="text/javascript"></script>
+</head>
+<body>
+<th:block th:include="~{fragments/nav}"></th:block>
+<div class="container">
+    <h1 th:text="|${classroom.number} *{classroom.letter} class|"></h1>
+    <div class="container">
+                <a th:href="@{'/students/all/' + ${classroom.id}}" >
+                    <button  class="btn btn-dark btn-lg btn-block" >Students</button>
+                </a>
+                <div style="height: 20px"></div>
+                <a th:href="@{'/subjects/all/' + ${classroom.id}}" >
+                    <button class="btn btn-dark btn-lg btn-block">Subjects</button>
+                </a>
+<th:block th:include="~{/fragments/footer}"></th:block>
+</div>
+</body>
+</html>

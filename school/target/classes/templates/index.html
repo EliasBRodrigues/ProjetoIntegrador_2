@@ -1,0 +1,33 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div class="wrap">
+    <th:block th:include="~{fragments/nav}"></th:block>
+    <div class="container">
+        <table class="table-secondary" style="width: 100%">
+            <thead>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="|Users : ${users}|"></td>
+                <td th:text="|Classes: ${classrooms}|"></td>
+                <td th:text="|Marks: ${marks}|"></td>
+                <td th:text="|Teachers : ${teachers}|"></td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="text-center text-light">Information is updated every 5 minutes.</p>
+        <th:block sec:authorize="isAnonymous()">
+                <h1>Welcome to E-school!</h1>
+                <a href="/authentication/login">
+                    <h3 class="text-center text-primary">Entrance!</h3>
+                </a>
+        </th:block>
+    </div>
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</div>
+</body>
+</html>
