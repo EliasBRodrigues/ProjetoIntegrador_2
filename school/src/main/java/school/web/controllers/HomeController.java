@@ -40,7 +40,7 @@ public class HomeController extends BaseController {
             return redirect("/admin/home");
         }
         if (authorities.contains(AuthorityEnum.STUDENT.name())) {
-            return redirect("students/home/" + username);
+            return redirect("/students/home/" + username);
         }
         return "home-user";
     }

@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage(LOGIN_URL)
                 .failureUrl(LOGIN_ERROR_URL)
                 .usernameParameter("email")
-                .defaultSuccessUrl(INDEX_URL)
+                .defaultSuccessUrl(INDEX_URL_USER)
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_URL))
