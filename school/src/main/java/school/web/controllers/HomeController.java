@@ -22,6 +22,11 @@ public class HomeController extends BaseController {
     }
 
     @GetMapping("/")
+    public String index(){
+        return "index";
+    }
+
+    @GetMapping("/home")
     public String home(Principal principal, Model model) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -15,6 +15,8 @@ public class GlobalConstants {
     public static final String REGISTER_URL = AUTHENTICATION_ROOT + "/register";
     public static final String LOGOUT_URL = "/logout";
     public static final String INDEX_URL = "/";
+    public static final String INDEX_URL_USER = "/home";
+
 
 
     //Templates

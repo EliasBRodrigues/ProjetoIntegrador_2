@@ -7,19 +7,6 @@
 <div class="wrap">
     <th:block th:include="~{fragments/nav}"></th:block>
     <div class="container">
-        <table class="table-secondary" style="width: 100%">
-            <thead>
-            </thead>
-            <tbody>
-            <tr>
-                <td th:text="|Users : ${users}|"></td>
-                <td th:text="|Classes: ${classrooms}|"></td>
-                <td th:text="|Marks: ${marks}|"></td>
-                <td th:text="|Teachers : ${teachers}|"></td>
-            </tr>
-            </tbody>
-        </table>
-        <p class="text-center text-light">Information is updated every 5 minutes.</p>
         <th:block sec:authorize="isAnonymous()">
                 <h1>Welcome to E-school!</h1>
                 <a href="/authentication/login">
