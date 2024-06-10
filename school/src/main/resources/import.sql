@@ -25,7 +25,7 @@ INSERT INTO classrooms(letter, number) VALUE (0,1);
 INSERT INTO subjects(subject, classroom_id, teacher_id) VALUE (1,1,1);
 INSERT INTO subjects(subject, classroom_id, teacher_id) VALUE (2,1,1);
 
-INSERT INTO students(first_name, last_name, middle_name, classroom_id,user_id) VALUE ('Elias','Borges','Rodrigues',1,3);
+INSERT INTO students(first_name, last_name, middle_name, classroom_id,user_id) VALUE ('Elias','','Rodrigues',1,3);
 
 INSERT INTO marks(value, student_id, subject_id) VALUE (6,1,1);
 INSERT INTO marks(value, student_id, subject_id) VALUE (2,1,1);

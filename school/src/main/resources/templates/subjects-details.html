@@ -4,8 +4,40 @@
 <head>
     <th:block th:include="~{fragments/head}"></th:block>
 </head>
-<body>
-<th:block th:include="~{fragments/nav}"></th:block>
+<body class="body-teacher">
+    <nav class="navbar navbar-expand-lg teacher-nav fixed-top">
+        <a  sec:authorize="isAuthenticated()" th:href="@{/home}">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto col-12 justify-content-between">
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       Administrator
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/users/all">Users</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/classrooms/all">Classes</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/teachers/all">Teachers</a>
+                    </div>
+                </li>
+                <li>
+                </li>
+                <li sec:authorize="isAnonymous()" class="nav-item" >
+                    <a  class="nav-link" href="/authentication/login">Login</a>
+                </li>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item" >
+                    <a class="nav-link" th:text="${#authentication.getPrincipal().getUsername()} + ',Sair'" href="/logout"></a>
+                </li>
+            </ul>
+    </nav>
 <div class="container">
     <h3 class="text-center text-white" th:text="|${subject.subject} ${subject.classroom.number} ${subject.classroom.letter} class|"></h3>
     <div>
@@ -13,7 +45,7 @@
             <table class="table table-striped" style="width:100%">
                 <thead>
                 <tr>
-                    <td colspan="5"><h3 class="text-center">Students</h3></td>
+                    <td colspan="5"><h3 class="text-center teacher-text">Students</h3></td>
                 </tr>
                 </thead>
                 <tr th:each="student : ${subject.classroom.students}">
@@ -34,6 +66,6 @@
     </div>
     <div style="height: 80px"></div>
 </div>
-<th:block th:include="~{/fragments/footer}"></th:block>
+
 </body>
 </html>

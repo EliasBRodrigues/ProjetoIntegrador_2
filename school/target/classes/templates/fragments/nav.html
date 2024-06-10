@@ -1,6 +1,8 @@
-<th:block>
+<th:block th:with="userLanguage=${#httpServletRequest.getHeader('Accept-Language')}">
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
-        <a  sec:authorize="isAuthenticated()" th:href="@{/}">Home</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/home}">Home</a>
+        <a th:href="@{'/?lang=en'}" th:class="${userLanguage.startsWith('en') ? 'active' : ''}">English</a>
+        <a th:href="@{'/?lang=pt'}" th:class="${userLanguage.startsWith('pt') ? 'active' : ''}">Português</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
