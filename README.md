@@ -7,7 +7,7 @@ O sistema permite que administradores, professores e alunos acessem e gerenciem 
 
 - Gestão de Alunos e Professores: Cadastro e atualização de informações de alunos e professores, incluindo detalhes pessoais, informações de contato, histórico acadêmico, etc.
 
-- Matrícula e Gestão de Turmas: Registro de novos alunos, atribuição de turmas, horários de aula e gestão de salas de aula.
+- Matrícula e Gestão de Turmas: Atribuição de turmas, horários de aula e gestão de salas de aula.
 
 - Controle de Notas: Registro de presenças em aulas, lançamento de notas e acompanhamento do desempenho acadêmico dos alunos.
 
