@@ -22,4 +22,7 @@ O sistema permite que administradores, professores e alunos acessem e gerenciem 
 - Spring Framework: Framework de desenvolvimento de aplicações empresariais em Java, que oferece recursos abrangentes para criar aplicativos web escaláveis e seguros.
 
 
+![Captura de tela 2024-06-09 222437](https://github.com/EliasBRodrigues/ProjetoIntegrador_2/assets/112342764/435d5127-a397-4d05-a88d-5ef09305da9f)
+
+
 Equipe: Gustavo, Elias, Emilly, Taina, Fabio, Diogo, Felipe
