@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html   lang="en" xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body class="body-student">
+    <nav class="navbar navbar-expand-lg student-nav navbar-dark fixed-top">
+        <a  sec:authorize="isAuthenticated()" th:href="@{/home}">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto col-12 justify-content-between">
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       Administrator
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" haddref="/users/all">Users</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/classrooms/all">Classes</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/teachers/all">Teachers</a>
+                    </div>
+                </li>
+                <li>
+                </li>
+                <li sec:authorize="isAnonymous()" class="nav-item" >
+                    <a  class="nav-link" href="/authentication/login">Login</a>
+                </li>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item" >
+                    <a class="nav-link" th:text="${#authentication.getPrincipal().getUsername()} + ',Sair'" href="/logout"></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+<div class="container">
+        <h3 th:object="${student}" th:text="|*{firstName} *{middleName} *{lastName}|" class="text-center text-white"></h3>
+        <h4 th:object="${subject}" th:text="|*{subject} *{classroom.number} *{classroom.letter} class|" class="text-white text-center"></h4>
+        <div>
+            <h3 class="text-center text-white">Ratings</h3>
+            <table class="table table-striped" >
+                <tr th:each="mark : ${marks}" >
+                    <td th:text="${marks.indexOf(mark)} + 1"></td>
+                    <th:block th:switch="${mark.value}">
+                        <td th:case="6">Excellent</td>
+                        <td th:case="5">Very good</td>
+                        <td th:case="4">A good one</td>
+                        <td th:case="3">Average</td>
+                        <td th:case="2">Weak</td>
+                    </th:block>
+                    <td th:text="${mark.value}"></td>
+                    <th:block sec:authorize="hasAuthority('TEACHER')">
+                        <td>
+                        <form th:method="put" th:action="@{/marks/edit/}">
+                            <select name="value" th:value="${mark.value}" >
+                                <option th:value="${mark.value}" th:text="${mark.value}" selected></option>
+                                <option th:if="${mark.value} != 6" value="6">6</option>
+                                <option th:if="${mark.value} != 5" value="5">5</option>
+                                <option th:if="${mark.value} != 4" value="4">4</option>
+                                <option th:if="${mark.value} != 3" value="3">3</option>
+                                <option th:if="${mark.value} != 2" value="2">2</option>
+
+                            </select>
+                            <input type="hidden" th:value="${mark.id}" name="id">
+                            <input type="hidden" th:value="${student.id}" name="studentId">
+                            <input type="hidden" th:value="${subject.id}" name="subjectId">
+                            <button class="button btn-success">Changes</button>
+                        </form>
+                        </td>
+                        <td>
+                            <form th:method="delete" th:action="@{/marks/delete}">
+                                <input type="hidden" th:value="${mark.id}" name="markId">
+                                <input type="hidden" th:value="${student.id}" name="studentId">
+                                <input type="hidden" th:value="${subject.id}" name="subjectId">
+                                <button class="button btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </th:block>
+                    <td>
+                </tr>
+                <tr th:if="${marks.size()} == 0">
+                    <td colspan="4" class="text-danger text-center">There are no ratings</td>
+                </tr>
+            </table>
+            <h3 th:if="${marks.size() > 0}" th:text="|Average success : ${#numbers.formatDecimal(avg,1,2)}|" class="text-white text-center" ></h3>
+            <div style="height: 50px"></div>
+            <form sec:authorize="hasAuthority('TEACHER')" th:method="post" th:action="@{/marks/add}"
+                  class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+                <h3 class="text-center text-white">Add a rating</h3>
+                <div class="form-group">
+                    <label for="subject" class="text-white">Choose a grade</label>
+                    <select  class="form-control" id="subject" name="value">
+                        <option value="2">Weak(2)</option>
+                        <option value="3">Average(3)</option>
+                        <option value="4">A good one(4)</option>
+                        <option value="5">Very good(5)</option>
+                        <option value="6">Excellent(6)</option>
+                    </select>
+                    <input type="hidden" th:value="${student.id}" name="studentId">
+                    <input  type="hidden" th:value="${subject.id}" name="subjectId">
+                </div>
+                <div class="row">
+                    <div class="col col-md-4">
+                        <div class="button-holder d-flex">
+                            <input type="submit" class="btn btn-info btn-lg" value="Add"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div style="height: 80px"></div>
+    </div>
+    <div style="height: 80px"></div>
+</div>
+
+</body>
+</html>

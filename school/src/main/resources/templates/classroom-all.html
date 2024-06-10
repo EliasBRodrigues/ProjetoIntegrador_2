@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<th:block th:include="~{fragments/nav}"></th:block>
+<div class="container" id="all-groups-container">
+    <a th:href="@{/classrooms/add}">
+        <button class="button btn-dark">Add a class</button>
+    </a>
+    <h3 class="text-center text-white" >All classes</h3>
+    <table class="table table-striped" style="width:100%">
+        <thead>
+        <tr>
+            <td>#</td>
+            <td>Class</td>
+            <td>Options</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c : ${classrooms}">
+            <td th:text="${classrooms.indexOf(c)} + 1"></td>
+            <td th:object="${c}" th:text="|*{number} *{letter}|"></td>
+            <td>
+                <a  th:href="@{'/classrooms/details/' + ${c.id}}">
+                    <button type="button" class="button btn-success">Choose</button>
+                </a>
+            </td>
+        </tr>
+        <tr th:if="${classrooms.size()} == 0">
+            <td colspan="4" class="text-danger text-center">There are no classes</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div style="height: 80px"></div>
+</div>
+</div>
+<th:block th:include="~{/fragments/footer}"></th:block>
+</body>
+</html>

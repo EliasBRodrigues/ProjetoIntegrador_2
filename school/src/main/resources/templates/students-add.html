@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html   lang="en" xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<th:block th:include="~{fragments/nav}"></th:block>
+<div class="container">
+    <h3 class="text-center text-white" th:text="|${group.number} *{group.letter} class|"></h3>
+    <a th:href="@{'/students/all/' + ${group.id}}">
+        <button class="button btn-dark">All students</button>
+    </a>
+    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/subjects/' + ${group.id}}">
+        <button type="button" class="button btn-dark">Subjects</button>
+    </a>
+    <div id="add-student-container" sec:authorize="hasAuthority('ADMIN')">
+        <form th:method="POST" th:action="@{/students/add}" th:object="${bindingModel}"
+              class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+            <h3 class="text-white text-center">Add a student</h3>
+            <div class="form-group">
+                <label class="text-white" for="firstName">Name</label>
+                <input th:field="*{firstName}" th:errorclass="bg-danger" id="firstName" required name="firstName" type="text"  class="form-control" placeholder="Name..."/>
+                <small class="text-danger" th:errors="*{firstName}"></small>
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="middleName">Surname</label>
+                <input th:field="*{middleName}" th:errorclass="bg-danger" id="middleName" required name="middleName" type="text" class="form-control"/>
+                <small class="text-danger" th:errors="*{firstName}"></small>
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="lastName">Last name</label>
+                <input th:field="*{lastName}" th:errorclass="bg-danger" id="lastName" required name="lastName"
+                       type="text" class="form-control" placeholder="Last name..."/>
+                <small class="text-danger" th:errors="*{firstName}"></small>
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="userEmail">Еmail:</label>
+                <input th:field="*{userEmail}" type="email" th:errorclass="bg-danger" id="userEmail" required name="userEmail" class="form-control" placeholder="Email"/>
+                <small th:if="${error}" class="text-danger">Email already exists</small>
+            </div>
+            <input type="hidden" th:value="${group.id}" name="classroomId">
+            <div class="row">
+                <div class="col col-md-4">
+                    <div class="button-holder d-flex">
+                        <input type="submit" class="btn btn-info btn-lg" value="Add"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div style="height: 80px"></div>
+</div>
+<th:block th:include="~{/fragments/footer}"></th:block>
+</body>
+</html>

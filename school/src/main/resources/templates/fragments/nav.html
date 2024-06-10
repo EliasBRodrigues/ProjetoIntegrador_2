@@ -1,0 +1,38 @@
+<th:block th:with="userLanguage=${#httpServletRequest.getHeader('Accept-Language')}">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
+        <a sec:authorize="isAuthenticated()" th:href="@{/home}">Home</a>
+        <a th:href="@{'/?lang=en'}" th:class="${userLanguage.startsWith('en') ? 'active' : ''}">English</a>
+        <a th:href="@{'/?lang=pt'}" th:class="${userLanguage.startsWith('pt') ? 'active' : ''}">Português</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto col-12 justify-content-between">
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       Administrator
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/users/all">Users</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/classrooms/all">Classes</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/teachers/all">Teachers</a>
+                    </div>
+                </li>
+                <li>
+                </li>
+                <li sec:authorize="isAnonymous()" class="nav-item" >
+                    <a  class="nav-link" href="/authentication/login">Login</a>
+                </li>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item" >
+                    <a class="nav-link" th:text="${#authentication.getPrincipal().getUsername()} + ',Sair'" href="/logout"></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</th:block>
