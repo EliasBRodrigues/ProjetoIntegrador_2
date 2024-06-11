@@ -1,4 +1,4 @@
-# ProjetoIntegrador_2
+# ProjetoPortifolioOnline
 
 O sistema permite que administradores, professores e alunos acessem e gerenciem informações relevantes, como matrículas, notas, informações de contato. Ele facilita a comunicação entre todas as partes envolvidas na comunidade escolar, automatiza processos administrativos e fornece insights valiosos por meio de relatórios e análises.
 
